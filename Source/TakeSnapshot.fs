@@ -8,20 +8,16 @@ open System.Collections.Generic
 open System.Xml.Serialization
 open System.Configuration
 
-module Util =
-    let fromXml<'a> (stream:Stream) =
-        let serializer = XmlSerializer(typeof<'a>)
-        serializer.Deserialize(stream) :?> 'a
-
 type Tracker(token) =
-    member this.Get(url:string, responseHandler) =
+    static let ApiUrl = "http://www.pivotaltracker.com/services/v2"
+
+    member this.Get (url:string) responseHandler =
         let request = WebRequest.Create(url)
         request.Headers.Add("X-TrackerToken", token)
         use response = request.GetResponse()
         responseHandler(response.GetResponseStream())
-
-    member this.Get<'a> (url:string) =
-        this.Get(url, Util.fromXml<'a>)
+        
+    member this.GetStories projectId = this.Get(String.Format("{0}/projects/{1}/stories", ApiUrl, projectId))
         
 type TrackerStory() =
     [<DefaultValue>] val mutable id : int
@@ -48,32 +44,8 @@ type TrackerStories() =
         with get() = this.total
         and set(value) = this.total <- value
 
-[<Sealed;XmlRoot("Tracker")>]
-type TrackerToolsConfiguration() =   
-    [<DefaultValue>] val mutable private apiToken : string
-    [<DefaultValue>] val mutable private projectId : int
-    [<DefaultValue>] val mutable private outputDirectory : string
-
-    member this.ApiToken
-        with get() = this.apiToken
-        and set(value) = this.apiToken <- value
-
-    member this.ProjectId
-        with get() = this.projectId
-        and set(value) = this.projectId <- value
-        
-    member this.OutputDirectory 
-        with get() = this.outputDirectory
-        and set(value) = this.outputDirectory <- value        
-
-    interface IConfigurationSectionHandler with
-        member this.Create(parent, configcontext, section) =
-            let serializer = XmlSerializer(this.GetType())                
-            use reader = new XmlNodeReader(section) :> XmlReader
-            serializer.Deserialize(reader)                                 
-
 module Program =   
-    let Configuration = ConfigurationManager.GetSection("Tracker") :?> TrackerToolsConfiguration 
+    let Configuration = TrackerToolsConfiguration.FromAppConfig()
     
     let SaveSnapshot (stream:Stream) = 
         use reader = new StreamReader(stream)
@@ -83,5 +55,5 @@ module Program =
     [<EntryPoint>]
     let main array =
         let tracker = Tracker(Configuration.ApiToken)
-        tracker.Get(String.Format("http://www.pivotaltracker.com/services/v2/projects/{0}/stories", Configuration.ProjectId), SaveSnapshot)       
+        tracker.GetStories Configuration.ProjectId SaveSnapshot
         0

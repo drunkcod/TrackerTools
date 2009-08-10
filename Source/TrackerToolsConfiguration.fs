@@ -1,0 +1,32 @@
+﻿namespace TrackerTools
+open System.Configuration
+open System.Xml
+open System.Xml.Serialization
+
+
+[<Sealed;XmlRoot("Tracker")>]
+type TrackerToolsConfiguration() =
+    [<DefaultValue>] val mutable private apiToken : string
+    [<DefaultValue>] val mutable private projectId : int
+    [<DefaultValue>] val mutable private outputDirectory : string
+
+    static member FromAppConfig() =
+        ConfigurationManager.GetSection("Tracker") :?> TrackerToolsConfiguration
+
+    member this.ApiToken
+        with get() = this.apiToken
+        and set(value) = this.apiToken <- value
+
+    member this.ProjectId
+        with get() = this.projectId
+        and set(value) = this.projectId <- value
+        
+    member this.OutputDirectory 
+        with get() = this.outputDirectory
+        and set(value) = this.outputDirectory <- value        
+
+    interface IConfigurationSectionHandler with
+        member this.Create(parent, configcontext, section) =
+            let serializer = XmlSerializer(this.GetType())                
+            use reader = new XmlNodeReader(section) :> XmlReader
+            serializer.Deserialize(reader)                                 
