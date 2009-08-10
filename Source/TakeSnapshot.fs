@@ -1,24 +1,10 @@
 ﻿namespace TrackerTools
-
 open System
-open System.Net
+open System.Collections.Generic
 open System.IO
 open System.Xml
-open System.Collections.Generic
 open System.Xml.Serialization
-open System.Configuration
 
-type Tracker(token) =
-    static let ApiUrl = "http://www.pivotaltracker.com/services/v2"
-
-    member this.Get (url:string) responseHandler =
-        let request = WebRequest.Create(url)
-        request.Headers.Add("X-TrackerToken", token)
-        use response = request.GetResponse()
-        responseHandler(response.GetResponseStream())
-        
-    member this.GetStories projectId = this.Get(String.Format("{0}/projects/{1}/stories", ApiUrl, projectId))
-        
 type TrackerStory() =
     [<DefaultValue>] val mutable id : int
     [<DefaultValue>] val mutable story_type : string
