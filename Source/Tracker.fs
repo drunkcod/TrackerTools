@@ -12,3 +12,4 @@ type Tracker(token) =
         responseHandler(response.GetResponseStream())
 
     member this.GetStories projectId = this.Get(String.Format("{0}/projects/{1}/stories", ApiUrl, projectId))
+    member this.GetStory projectId storyId = this.Get(String.Format("{0}/projects/{1}/stories/{2}", ApiUrl, projectId, storyId))
