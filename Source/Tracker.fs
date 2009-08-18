@@ -11,11 +11,11 @@ type Tracker(token) =
         use response = request.GetResponse()
         responseHandler(response.GetResponseStream())
 
-    member this.Post (url:string) requestHandler responseHandler =
+    member this.Post (url:string) (requestHandler:#IRequestHandler) responseHandler =
         let request = WebRequest.Create(url) :?> HttpWebRequest
         request.Headers.Add("X-TrackerToken", token)
         request.Method <- "POST"
-        requestHandler(request)
+        requestHandler.HandleRequest(request)
         use response = request.GetResponse()
         responseHandler(response.GetResponseStream())
 
@@ -23,4 +23,4 @@ type Tracker(token) =
     member this.GetStory projectId storyId = this.Get(String.Format("{0}/projects/{1}/stories/{2}", ApiUrl, projectId, storyId))
     
     member this.GetTasks projectId storyId = this.Get(String.Format("{0}/projects/{1}/stories/{2}/tasks", ApiUrl, projectId, storyId))
-    member this.AddTask projectId storyId = this.Post(String.Format("{0}/projects/{1}/stories/{2}/tasks", ApiUrl, projectId, storyId))         
+    member this.AddTask projectId storyId =this.Post(String.Format("{0}/projects/{1}/stories/{2}/tasks", ApiUrl, projectId, storyId))

@@ -5,7 +5,7 @@ open System.Net
 open System.Xml
 open System.Xml.Serialization
 open System.Text
- 
+
 module Program =
     let StoryTemplate = File.ReadAllText("StoryTemplate.html")
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
@@ -34,24 +34,10 @@ module Program =
 
     let ShowTasks (storyId:int) (tracker:Tracker) =
         tracker.GetTasks Configuration.ProjectId storyId DumpToConsole
-    
-    let WriteFragment (stream:Stream) (x:obj) =
-        use writer = 
-            XmlTextWriter.Create(stream, 
-                XmlWriterSettings(OmitXmlDeclaration = true, Encoding = Encoding.UTF8, CloseOutput = true))
-        let serializer = XmlSerializer(x.GetType())
-        let ns = XmlSerializerNamespaces()
-        ns.Add("", "")
-        serializer.Serialize(writer, x, ns)      
-    
-    let XmlResult x (request:HttpWebRequest) =
-        request.ContentType <- "text/xml"
-        WriteFragment (request.GetRequestStream()) x
-    
+            
     let AddTask (storyId:int) (description:string) (tracker:Tracker) =
-        tracker.AddTask Configuration.ProjectId storyId 
-            (XmlResult(TrackerTask(Description = description)))
-            DumpToConsole
+        let request = XmlRequest(TrackerTask(Description = description)) 
+        tracker.AddTask Configuration.ProjectId storyId request DumpToConsole
     
     let ShowHelp x = ()
 
