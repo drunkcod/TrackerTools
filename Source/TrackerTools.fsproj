@@ -30,8 +30,14 @@
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TakeSnapshot.fs" />
     <Content Include="app.config" />
+    <Compile Include="Tracker.fs" />
+    <Compile Include="TrackerStory.fs" />
+    <Compile Include="TrackerStories.fs" />
+    <Compile Include="TrackerTask.fs" />
+    <Compile Include="TrackerTasks.fs" />
+    <Compile Include="TrackerToolsConfiguration.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
