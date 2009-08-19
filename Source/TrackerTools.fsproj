@@ -31,11 +31,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.config" />
-    <Compile Include="Tracker.fs" />
+    <Compile Include="IRequestHandler.fs" />
+    <Compile Include="XmlRequest.fs" />
+    <Compile Include="TrackerProject.fs" />
+    <Compile Include="TrackerProjects.fs" />
     <Compile Include="TrackerStory.fs" />
     <Compile Include="TrackerStories.fs" />
     <Compile Include="TrackerTask.fs" />
     <Compile Include="TrackerTasks.fs" />
+    <Compile Include="Tracker.fs" />
     <Compile Include="TrackerToolsConfiguration.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

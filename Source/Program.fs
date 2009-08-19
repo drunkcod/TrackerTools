@@ -9,10 +9,6 @@ open System.Text
 module Program =
     let StoryTemplate = File.ReadAllText("StoryTemplate.html")
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
-    let FromXml<'a> (stream:Stream) =
-        use reader = new StreamReader(stream)
-        let serializer = XmlSerializer(typeof<'a>)
-        serializer.Deserialize(reader) :?> 'a
 
     let TakeSnapshot (tracker:Tracker) =
         let SaveSnapshot (stream:Stream) = 
