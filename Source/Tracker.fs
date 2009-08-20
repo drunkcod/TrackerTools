@@ -21,7 +21,7 @@ type Tracker(token) =
     member this.GetStory projectId storyId = this.Get(String.Format("projects/{0}/stories/{1}", projectId, storyId))
     
     member this.GetTasks projectId storyId = this.Get(String.Format("projects/{0}/stories/{1}/tasks", projectId, storyId))
-    member this.AddTask (projectId:int) (storyId:int) = this.Post(String.Format("projects/{0}/stories/{1}/tasks", projectId, storyId))
+    member this.AddTask (projectId:int) (storyId:int) = this.Post(String.Format("projects/{0}/stories/{1}/tasks", projectId, storyId)) : #IRequestHandler -> (Stream -> 'a) -> 'a
 
     member this.GetIteration projectId iteration = this.Get(String.Format("projects/{0}/iterations/{1}", projectId, iteration))
 
