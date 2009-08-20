@@ -1,6 +1,5 @@
 ﻿namespace TrackerTools
 open System
-open System.Net
 
 open System.Xml.Serialization
 open System.IO
@@ -12,35 +11,19 @@ module Util =
         serializer.Deserialize(reader) :?> 'a
 
 type Tracker(token) =
-    static let ApiUrl = "http://www.pivotaltracker.com/services/v2"
-    
-    member this.CreateRequest url = 
-        let request = WebRequest.Create(url:string) :?> HttpWebRequest
-        request.Headers.Add("X-TrackerToken", token)
-        request
-
-    member this.Get (url:string) responseHandler =
-        let request = this.CreateRequest url
-        use response = request.GetResponse()
-        responseHandler(response.GetResponseStream())
-
-    member this.Post (url:string) (requestHandler:#IRequestHandler) responseHandler =
-        let request = this.CreateRequest url
-        request.Method <- "POST"
-        requestHandler.HandleRequest(request)
-        use response = request.GetResponse()
-        responseHandler(response.GetResponseStream())
+    inherit Service()
+        override this.BaseUrl = "http://www.pivotaltracker.com/services/v2/"
+        override this.PrepareRequest request = request.Headers.Add("X-TrackerToken", token)
         
-    member this.GetProjects() = this.Get(String.Format("{0}/projects", ApiUrl)) 
+    member this.GetProjects() = this.Get("projects") 
 
-    member this.GetStories projectId = this.Get(String.Format("{0}/projects/{1}/stories", ApiUrl, projectId))
-    member this.GetStory projectId storyId = this.Get(String.Format("{0}/projects/{1}/stories/{2}", ApiUrl, projectId, storyId))
+    member this.GetStories(projectId:int) = this.Get(String.Format("projects/{0}/stories", projectId))
+    member this.GetStory projectId storyId = this.Get(String.Format("projects/{0}/stories/{1}", projectId, storyId))
     
-    member this.GetTasks projectId storyId = this.Get(String.Format("{0}/projects/{1}/stories/{2}/tasks", ApiUrl, projectId, storyId))
-    member this.AddTask projectId storyId =this.Post(String.Format("{0}/projects/{1}/stories/{2}/tasks", ApiUrl, projectId, storyId))
+    member this.GetTasks projectId storyId = this.Get(String.Format("projects/{0}/stories/{1}/tasks", projectId, storyId))
+    member this.AddTask (projectId:int) (storyId:int) = this.Post(String.Format("projects/{0}/stories/{1}/tasks", projectId, storyId))
 
-    member this.GetIteration projectId iteration = this.Get(String.Format("{0}/projects/{1}/iterations/{2}", ApiUrl, projectId, iteration))
-
+    member this.GetIteration projectId iteration = this.Get(String.Format("projects/{0}/iterations/{1}", projectId, iteration))
 
 type TrackerApi(token) =
     let tracker = Tracker(token)
@@ -48,4 +31,3 @@ type TrackerApi(token) =
     member this.GetProjects() = tracker.GetProjects() FromXml<TrackerProjects>
     member this.GetStories(projectId:int) = tracker.GetStories(projectId) FromXml<TrackerStories>
     member this.GetTasks(projectId:int, storyId:int) = tracker.GetTasks projectId storyId FromXml<TrackerTasks>
-    
