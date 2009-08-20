@@ -27,7 +27,12 @@ type Tracker(token) =
 
 type TrackerApi(token) =
     let tracker = Tracker(token)
-    
+    member this.Base = tracker
     member this.GetProjects() = tracker.GetProjects() FromXml<TrackerProjects>
+    member this.GetIteration(projectId:int, iteration) = 
+        let result = tracker.GetIteration projectId iteration FromXml<TrackerIterations>
+        result.Items
+        
     member this.GetStories(projectId:int) = tracker.GetStories(projectId) FromXml<TrackerStories>
+    member this.GetStory(projectId, storyId) = tracker.GetStory projectId storyId FromXml<TrackerStory>
     member this.GetTasks(projectId:int, storyId:int) = tracker.GetTasks projectId storyId FromXml<TrackerTasks>
