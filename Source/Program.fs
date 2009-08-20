@@ -34,6 +34,9 @@ module Program =
     let AddTask (storyId:int) (description:string) (tracker:Tracker) =
         let request = XmlRequest(TrackerTask(Description = description)) 
         tracker.AddTask Configuration.ProjectId storyId request DumpToConsole
+        
+    let ShowCurrentIteration (tracker:Tracker) = 
+        tracker.GetIteration Configuration.ProjectId "current" DumpToConsole
     
     let ShowHelp x = ()
 
@@ -46,6 +49,7 @@ module Program =
                 | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
                 | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
                 | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
+                | "ShowCurrentIteration" -> ShowCurrentIteration
                 | _ -> ShowHelp
         with :? WebException as e ->
             Console.WriteLine e.Message       

@@ -32,9 +32,9 @@
             this.ApiToken = new System.Windows.Forms.TextBox();
             this.Projects = new System.Windows.Forms.ComboBox();
             this.Stories = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Tasks = new System.Windows.Forms.DataGridView();
             this.NewToken = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tasks)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -69,13 +69,13 @@
             this.Stories.Size = new System.Drawing.Size(264, 21);
             this.Stories.TabIndex = 3;
             // 
-            // dataGridView1
+            // Tasks
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 112);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(264, 267);
-            this.dataGridView1.TabIndex = 4;
+            this.Tasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Tasks.Location = new System.Drawing.Point(16, 112);
+            this.Tasks.Name = "Tasks";
+            this.Tasks.Size = new System.Drawing.Size(264, 267);
+            this.Tasks.TabIndex = 4;
             // 
             // NewToken
             // 
@@ -93,14 +93,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 388);
             this.Controls.Add(this.NewToken);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.Tasks);
             this.Controls.Add(this.Stories);
             this.Controls.Add(this.Projects);
             this.Controls.Add(this.ApiToken);
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
             this.Text = "TrackerTasks";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Tasks)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,7 +112,7 @@
         private System.Windows.Forms.TextBox ApiToken;
         private System.Windows.Forms.ComboBox Projects;
         private System.Windows.Forms.ComboBox Stories;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView Tasks;
         private System.Windows.Forms.Button NewToken;
     }
 }
