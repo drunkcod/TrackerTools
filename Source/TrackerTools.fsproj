@@ -43,6 +43,7 @@
     <Compile Include="TrackerTasks.fs" />
     <Compile Include="TrackerIteration.fs" />
     <Compile Include="TrackerIterations.fs" />
+    <Compile Include="Service.fs" />
     <Compile Include="Tracker.fs" />
     <Compile Include="TrackerToolsConfiguration.fs" />
     <Compile Include="Program.fs" />
