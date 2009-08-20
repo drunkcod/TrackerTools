@@ -8,4 +8,4 @@ type TrackerIterations() =
     let iterations = List<TrackerIteration>()
     
     [<XmlElement("iteration")>]
-    member this.Iterations = iterations
+    member this.Items = iterations

@@ -43,11 +43,11 @@ module Program =
         tracker.AddTask Configuration.ProjectId storyId request DumpToConsole
         
     let DumpCurrentIteration (tracker:Tracker) = 
-        let iterations = tracker.GetIteration Configuration.ProjectId "current" DumpToConsole
-        (*FromXml<TrackerIterations>
-        iterations.Iterations
+        let iterations = tracker.GetIteration Configuration.ProjectId "current" FromXml<TrackerIterations>
+        
+        iterations.Items
         |> Seq.collect (fun x -> x.Stories)
-        |> Seq.iter WriteStoryCard        *)
+        |> Seq.iter WriteStoryCard
     
     let ShowHelp x = ()
 

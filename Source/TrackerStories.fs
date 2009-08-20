@@ -8,7 +8,7 @@ type TrackerStories() =
     [<DefaultValue>] val mutable private total : int
     let stories = List<TrackerStory>()
     [<XmlElement("story")>]        
-    member this.Stories = stories
+    member this.Items = stories
     member this.Count = stories.Count
     member this.Total
         with get() = this.total

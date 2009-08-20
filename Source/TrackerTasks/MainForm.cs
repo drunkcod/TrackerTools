@@ -28,7 +28,7 @@ namespace TrackerTasks
         {
             var tracker = new TrackerApi(ApiToken.Text);
             Stories.SelectedValueChanged -= Stories_SelectedValueChanged;
-            Stories.DataSource = tracker.GetStories((int)Projects.SelectedValue).Stories;
+            Stories.DataSource = tracker.GetStories((int)Projects.SelectedValue).Items;
             Stories.DisplayMember = "Name";
             Stories.ValueMember = "Id";
             Stories.SelectedValueChanged += Stories_SelectedValueChanged;
