@@ -17,12 +17,19 @@ module Program =
             File.WriteAllText(targetPath, reader.ReadToEnd())
         tracker.GetStories Configuration.ProjectId SaveSnapshot
     
-    let CreateStoryCard (storyId:int) (tracker:Tracker) =
-        let FormatDescription (story:TrackerStory) = story.Description.Replace("\n", "<br>")
+    let WriteStoryCard(story:TrackerStory) =
+        let FormatDescription (story:TrackerStory) = 
+            match story.Description with
+            | null -> String.Empty
+            | x -> x.Replace("\n", "<br>")
+            
         let ProcessTemplate (story:TrackerStory) =
             StoryTemplate.Replace("$(Name)", story.Name).Replace("$(Description)",FormatDescription story )
-        let story = tracker.GetStory Configuration.ProjectId storyId FromXml<TrackerStory>
-        File.WriteAllText(String.Format("{0}.html", storyId), ProcessTemplate story)
+        File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
+    
+    let CreateStoryCard (storyId:int) (tracker:Tracker) =
+        tracker.GetStory Configuration.ProjectId storyId FromXml<TrackerStory>
+        |> WriteStoryCard
 
     let DumpToConsole (stream:Stream) =
         use reader = new StreamReader(stream)
@@ -35,8 +42,12 @@ module Program =
         let request = XmlRequest(TrackerTask(Description = description)) 
         tracker.AddTask Configuration.ProjectId storyId request DumpToConsole
         
-    let ShowCurrentIteration (tracker:Tracker) = 
-        tracker.GetIteration Configuration.ProjectId "current" DumpToConsole
+    let DumpCurrentIteration (tracker:Tracker) = 
+        let iterations = tracker.GetIteration Configuration.ProjectId "current" DumpToConsole
+        (*FromXml<TrackerIterations>
+        iterations.Iterations
+        |> Seq.collect (fun x -> x.Stories)
+        |> Seq.iter WriteStoryCard        *)
     
     let ShowHelp x = ()
 
@@ -49,7 +60,7 @@ module Program =
                 | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
                 | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
                 | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
-                | "ShowCurrentIteration" -> ShowCurrentIteration
+                | "DumpCurrentIteration" -> DumpCurrentIteration
                 | _ -> ShowHelp
         with :? WebException as e ->
             Console.WriteLine e.Message       
