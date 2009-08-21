@@ -35,6 +35,7 @@
     <Content Include="GetIterationsSampleResponse.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="DataBinderTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
