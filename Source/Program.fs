@@ -19,13 +19,9 @@ module Program =
         Tracker.Base.GetStories Configuration.ProjectId SaveSnapshot
     
     let WriteStoryCard(story:TrackerStory) =
-        let FormatDescription (story:TrackerStory) = 
-            match story.Description with
-            | null -> String.Empty
-            | x -> x.Replace("\n", "<br>")
-            
         let ProcessTemplate (story:TrackerStory) =
-            StoryTemplate.Replace("$(Name)", story.Name).Replace("$(Description)",FormatDescription story )
+            DataBinder.Bind(StoryTemplate, story).Replace("\n", "<br>")
+
         File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
     
     let CreateStoryCard (storyId:int) =
