@@ -46,6 +46,7 @@
     <Compile Include="Service.fs" />
     <Compile Include="Tracker.fs" />
     <Compile Include="TrackerToolsConfiguration.fs" />
+    <Compile Include="DataBinder.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
