@@ -1,28 +1,19 @@
 ﻿namespace TrackerTools
-open System
+open System.Reflection
 open System.Xml.Serialization
-
+      
 module DataBinder =
-    let ToString = function
-        | null -> String.Empty
-        | x -> x.ToString()
+    let Bind(format:string, obj:obj) =
+        let getNames (mi:MemberInfo) = seq { 
+            yield mi.Name 
+            for x in mi.GetCustomAttributes(typeof<XmlElementAttribute>, false) do 
+                yield (x :?> XmlElementAttribute).ElementName} 
+           
+        let makeSymbols (mi:MemberInfo) value = getNames mi |> Seq.map (fun name -> Symbol(name, value))
+            
+        let itemType = obj.GetType()        
+        let properties = itemType.GetProperties() |> Seq.collect (fun prop -> makeSymbols prop (prop.GetValue(obj, null)))
+        let fields = itemType.GetFields() |> Seq.collect (fun field -> makeSymbols field (field.GetValue(obj)))
         
-    let Bind(format:string, x:obj) = 
-        let result = ref format
-        let itemType = x.GetType()
-        itemType.GetProperties()
-        |> Seq.iter (fun prop ->
-            let value = ToString(prop.GetValue(x, null))
-            result := (!result).Replace(String.Format("$({0})", prop.Name), value)
-            prop.GetCustomAttributes(typeof<XmlElementAttribute>, false)
-            |> Seq.cast<XmlElementAttribute>
-            |> Seq.iter (fun x -> result := (!result).Replace(String.Format("$({0})", x.ElementName), value)))
-                                    
-        itemType.GetFields()
-        |> Seq.iter (fun field ->
-            let value = ToString (field.GetValue(x))
-            result := (!result).Replace(String.Format("$({0})", field.Name), value)
-            field.GetCustomAttributes(typeof<XmlElementAttribute>, false)
-            |> Seq.cast<XmlElementAttribute>
-            |> Seq.iter (fun x -> result := (!result).Replace(String.Format("$({0})", x.ElementName), value)))         
-        !result
+        Seq.append properties fields
+        |> Seq.fold (fun x (s:Symbol) -> s.Replace x) format
