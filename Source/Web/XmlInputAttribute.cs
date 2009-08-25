@@ -5,7 +5,7 @@ using System.Net;
 
 namespace TrackerTools.Web
 {
-    class XmlInputAttribute : FilterAttribute, IActionFilter
+    public class XmlInputAttribute : FilterAttribute, IActionFilter
     {
         private readonly string parameterName;
 

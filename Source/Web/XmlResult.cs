@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TrackerTools.Web
 {
-    class XmlResult : ActionResult
+    public class XmlResult : ActionResult
     {
         static readonly XmlWriterSettings DefaultXmlWritterSettings = new XmlWriterSettings()
         {

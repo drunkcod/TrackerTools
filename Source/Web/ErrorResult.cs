@@ -16,7 +16,7 @@ namespace TrackerTools.Web
         public string Message { get; set; }
     }
 
-    class ErrorResult : ActionResult
+    public class ErrorResult : ActionResult
     {
         readonly HttpStatusCode statusCode;
         readonly Error error;
