@@ -1,14 +1,14 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Net;
 using System.Web.Mvc;
-using System.Net;
+using System.Xml.Serialization;
 
 namespace TrackerTools.Web
 {
-    public class Error
+    [XmlRoot("Error")]
+    public class ErrorResponse
     {
-        public Error() : this(string.Empty) { }
-        public Error(string message)
+        public ErrorResponse() : this(string.Empty) { }
+        public ErrorResponse(string message)
         {
             Message = message;
         }
@@ -19,19 +19,19 @@ namespace TrackerTools.Web
     public class ErrorResult : ActionResult
     {
         readonly HttpStatusCode statusCode;
-        readonly Error error;
+        readonly ErrorResponse errorResponse;
 
-        public ErrorResult(HttpStatusCode statusCode, Error error)
+        public ErrorResult(HttpStatusCode statusCode, ErrorResponse errorResponse)
         {
             this.statusCode = statusCode;
-            this.error = error;
+            this.errorResponse = errorResponse;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
             response.StatusCode = (int)statusCode;
-            new XmlResult(error).ExecuteResult(context);
+            new XmlResult(errorResponse).ExecuteResult(context);
         }
     }
 }
