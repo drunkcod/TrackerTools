@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Xml.Serialization;
-using System.Web.Mvc;
 using System.Net;
+using System.Web.Mvc;
+using System.Xml.Serialization;
 
 namespace TrackerTools.Web
 {
@@ -17,7 +17,7 @@ namespace TrackerTools.Web
             try {
                 filterContext.ActionParameters[parameterName] = serializer.Deserialize(filterContext.HttpContext.Request.InputStream);
             } catch (InvalidOperationException) {
-                filterContext.Result = new ErrorResult(HttpStatusCode.BadRequest, new Error("Error parsing payload."));
+                filterContext.Result = new ErrorResult(HttpStatusCode.BadRequest, new ErrorResponse("Error parsing payload."));
             }
         }
 
