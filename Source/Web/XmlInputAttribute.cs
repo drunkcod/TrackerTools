@@ -14,12 +14,9 @@ namespace TrackerTools.Web
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var serializer = new XmlSerializer(filterContext.ActionParameters[parameterName].GetType());
-            try
-            {
+            try {
                 filterContext.ActionParameters[parameterName] = serializer.Deserialize(filterContext.HttpContext.Request.InputStream);
-            }
-            catch (InvalidOperationException)
-            {
+            } catch (InvalidOperationException) {
                 filterContext.Result = new ErrorResult(HttpStatusCode.BadRequest, new Error("Error parsing payload."));
             }
         }

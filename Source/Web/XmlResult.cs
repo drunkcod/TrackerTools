@@ -28,7 +28,7 @@ namespace TrackerTools.Web
             ns.Add("", "");
             var response = context.HttpContext.Response;
             response.ContentType = "text/xml";
-            using (var writer = XmlTextWriter.Create(response.OutputStream, DefaultXmlWritterSettings))
+            using (var writer = XmlWriter.Create(response.OutputStream, DefaultXmlWritterSettings))
                 serializer.Serialize(writer, data, ns);
         }
     }
