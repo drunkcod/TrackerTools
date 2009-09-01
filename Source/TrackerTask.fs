@@ -4,7 +4,7 @@ type IgnoreIf = System.ComponentModel.DefaultValueAttribute
 
 [<XmlRoot("task")>]
 type TrackerTask() =
-    [<DefaultValue>] val mutable private id : int;
+    [<DefaultValue>] val mutable private id : int
     [<DefaultValue>] val mutable private description : string
     [<DefaultValue>] val mutable private position : int
     [<DefaultValue>] val mutable private complete : bool

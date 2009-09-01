@@ -36,6 +36,7 @@
     </Content>
     <Compile Include="GetIterationTests.fs" />
     <Compile Include="DataBinderTests.fs" />
+    <Compile Include="CreateProjectScenario.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

@@ -21,4 +21,4 @@ type Service() =
         request.Method <- "POST"
         requestHandler.HandleRequest(request)
         use response = request.GetResponse()
-        responseHandler(response.GetResponseStream())
+        responseHandler(response :?> HttpWebResponse)

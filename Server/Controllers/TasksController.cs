@@ -1,9 +1,9 @@
-using System;
-using System.Web.Mvc;
-using TrackerTools.Web;
-
 namespace Server.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using TrackerTools.Web;
+
     public class Task
     {
         public string Description { get; set; }
