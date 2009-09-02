@@ -1,9 +1,9 @@
-using System;
-using System.Web.Mvc;
-using TrackerTools.Web;
-
 namespace Server.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using TrackerTools.Web;
+
     public class Task
     {
         public string Description { get; set; }
@@ -13,7 +13,7 @@ namespace Server.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return new ContentResult { Content = "Hello Tracker World!" };
         }
         
         [AcceptVerbs(HttpVerbs.Post),  XmlInput("value")]

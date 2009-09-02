@@ -31,11 +31,12 @@
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GetIterationTests.fs" />
-    <Content Include="GetIterationsSampleResponse.xml">
+    <Content Include="TestData/GetIterationsSampleResponse.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="GetIterationTests.fs" />
     <Compile Include="DataBinderTests.fs" />
+    <Compile Include="CreateProjectScenario.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

@@ -37,7 +37,9 @@ module Program =
             
     let AddTask (storyId:int) (description:string) =
         let request = XmlRequest(TrackerTask(Description = description)) 
-        Tracker.Base.AddTask Configuration.ProjectId storyId request DumpToConsole
+        Tracker.Base.AddTask Configuration.ProjectId storyId request (fun x -> 
+            use stream = x.GetResponseStream()
+            DumpToConsole stream)
         
     let DumpCurrentIteration() = 
         Tracker.GetIteration(Configuration.ProjectId, "current")        

@@ -3,7 +3,7 @@ open System.IO
 open NUnit.Framework
 
 module When_parsing_GetIterations_sample_response =
-    let result = FromXml<TrackerIterations> <| File.OpenRead("GetIterationsSampleResponse.xml")
+    let result = FromXml<TrackerIterations> <| File.OpenRead("TestData\GetIterationsSampleResponse.xml")
     
     [<Test>]
     let number_of_iterations_should_match() = Assert.That(result.Items.Count, Is.EqualTo(5))
