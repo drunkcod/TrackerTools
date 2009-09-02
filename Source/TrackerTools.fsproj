@@ -34,6 +34,7 @@
   <ItemGroup>
     <Content Include="app.config" />
     <Compile Include="IRequestHandler.fs" />
+    <Compile Include="IResponseHandler.fs" />
     <Compile Include="XmlRequest.fs" />
     <Compile Include="TrackerProject.fs" />
     <Compile Include="TrackerProjects.fs" />

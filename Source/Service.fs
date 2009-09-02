@@ -16,9 +16,9 @@ type Service() =
         use response = request.GetResponse()
         responseHandler(response.GetResponseStream())
 
-    member this.Post (url:string) (requestHandler:#IRequestHandler) responseHandler =
+    member this.Post (url:string) (requestHandler:#IRequestHandler) (responseHandler:#IResponseHandler) =
         let request = this.CreateRequest url
         request.Method <- "POST"
         requestHandler.HandleRequest(request)
         use response = request.GetResponse()
-        responseHandler(response :?> HttpWebResponse)
+        responseHandler.HandleResponse(response :?> HttpWebResponse)

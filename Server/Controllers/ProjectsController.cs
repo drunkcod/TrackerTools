@@ -1,15 +1,15 @@
 ﻿namespace Server.Controllers
 {
-    using System;
-    using System.Web.Mvc;
+    using TrackerTools;
     using TrackerTools.Web;
+    using System.Web.Mvc;
 
     public class ProjectsController : Controller
     {
-        public ActionResult Index()
-        {
-            
-            return new CreatedResult("1", new XmlResult("Hello World!"));
+        [XmlInput("project"), AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Index(TrackerProject project)
+        {            
+            return new CreatedResult("1", new XmlResult(project));
         }
     }
 }

@@ -75,6 +75,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\TrackerTools.fsproj">
+      <Project>{9DF67327-0599-4C20-935D-BA802313A541}</Project>
+      <Name>TrackerTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\" />
