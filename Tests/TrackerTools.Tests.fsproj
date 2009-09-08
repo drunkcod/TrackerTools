@@ -45,7 +45,7 @@
       <Name>nunit.framework</Name>
       <AssemblyName>nunit.framework.dll</AssemblyName>
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\NUnit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\Lib\NUnit\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
