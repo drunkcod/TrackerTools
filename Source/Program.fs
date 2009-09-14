@@ -11,12 +11,13 @@ module Program =
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
     let Tracker = TrackerApi(Configuration.ApiToken)
 
+    let SaveSnapshot targetPath (stream:Stream) = 
+        use reader = new StreamReader(stream)
+        File.WriteAllText(targetPath, reader.ReadToEnd())
+
     let TakeSnapshot() =
-        let SaveSnapshot (stream:Stream) = 
-            use reader = new StreamReader(stream)
-            let targetPath = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd") + ".xml")
-            File.WriteAllText(targetPath, reader.ReadToEnd())
-        Tracker.Base.GetStories Configuration.ProjectId SaveSnapshot
+        let targetPath = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd") + ".xml")
+        Tracker.Base.GetStories Configuration.ProjectId (SaveSnapshot targetPath)
     
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
@@ -48,6 +49,12 @@ module Program =
         Tracker.GetIteration(Configuration.ProjectId, "current")        
         |> Seq.collect (fun x -> x.Stories)
         |> Seq.iter WriteStoryCard
+
+    let CreateBackup() =
+        let target = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd"))
+        Directory.CreateDirectory(target) |> ignore
+        Tracker.GetProjects().Projects
+        |> Seq.iter (fun x -> Tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Id.ToString() + ".xml"))))
     
     let ShowHelp() = ()
 
@@ -60,6 +67,7 @@ module Program =
             | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
             | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
             | "DumpCurrentIteration" -> DumpCurrentIteration()
+            | "CreateBackup" -> CreateBackup()
             | _ -> ShowHelp()
         with :? WebException as e ->
             Console.WriteLine e.Message       
