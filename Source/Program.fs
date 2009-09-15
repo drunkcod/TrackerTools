@@ -7,7 +7,7 @@ open System.Xml.Serialization
 open System.Text
 
 module Program =
-    let StoryTemplate = File.ReadAllText("StoryTemplate.html")
+    let StoryTemplate() = File.ReadAllText("StoryTemplate.html")
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
     let Tracker = TrackerApi(Configuration.ApiToken)
 
@@ -21,7 +21,7 @@ module Program =
     
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
-            DataBinder.Bind(StoryTemplate, story).Replace("\n", "<br>")
+            DataBinder.Bind(StoryTemplate(), story).Replace("\n", "<br>")
 
         File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
     
@@ -54,7 +54,7 @@ module Program =
         let target = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd"))
         Directory.CreateDirectory(target) |> ignore
         Tracker.GetProjects().Projects
-        |> Seq.iter (fun x -> Tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Id.ToString() + ".xml"))))
+        |> Seq.iter (fun x -> Tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Name + ".xml"))))
     
     let ShowHelp() = ()
 
