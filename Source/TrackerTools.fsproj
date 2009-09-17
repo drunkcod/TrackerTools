@@ -49,6 +49,9 @@
     <Compile Include="TrackerToolsConfiguration.fs" />
     <Compile Include="Symbol.fs" />
     <Compile Include="DataBinder.fs" />
+    <Compile Include="CommandNameAttribute.fs" />
+    <Compile Include="ITrackerToolsCommand.fs" />
+    <Compile Include="Commands\CreateBackupCommand.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
