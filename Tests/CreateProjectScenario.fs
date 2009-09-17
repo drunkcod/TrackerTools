@@ -7,6 +7,7 @@ open System.IO
 open System.Net
 open System.Xml.Serialization
 
+[<Category("Scenario")>]
 module CreateProjectScenario =
     let [<Literal>] TrackerToken = ""
     let [<Literal>] TestService = "http://localhost:8110/"

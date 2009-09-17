@@ -5,11 +5,41 @@ open System.Net
 open System.Xml
 open System.Xml.Serialization
 open System.Text
+open System.Reflection
 
-module Program =
+type ITrackerToolsCommand =
+    abstract Invoke : unit -> unit
+
+[<AttributeUsage(AttributeTargets.Class)>]
+type CommandNameAttribute(name) = 
+    inherit Attribute()
+    member this.Name =  name
+
+[<CommandName("CreateBackup")>]
+type CreateBackupCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration) =
+    let SaveSnapshot targetPath (stream:Stream) = 
+        use reader = new StreamReader(stream)
+        File.WriteAllText(targetPath, reader.ReadToEnd())
+    interface ITrackerToolsCommand with
+        member this.Invoke() =
+            let target = Path.Combine(configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd"))
+            Directory.CreateDirectory(target) |> ignore
+            tracker.GetProjects().Projects
+            |> Seq.iter (fun x -> tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Name + ".xml"))))
+
+module Program =                   
     let StoryTemplate() = File.ReadAllText("StoryTemplate.html")
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
     let Tracker = TrackerApi(Configuration.ApiToken)
+
+    let FindCommand name =
+        let command =  
+            Assembly.GetExecutingAssembly().GetTypes()
+            |> Seq.filter (fun x -> typeof<ITrackerToolsCommand>.IsAssignableFrom(x))
+            |> Seq.tryFind (fun x -> 
+                let commandNames = x.GetCustomAttributes(typeof<CommandNameAttribute>, false)
+                (commandNames.[0] :?> CommandNameAttribute).Name = name)
+        command |> Option.map (fun x -> x.GetConstructor([|typeof<TrackerApi>; typeof<TrackerToolsConfiguration>|]).Invoke([|box Tracker; box Configuration|]) :?> ITrackerToolsCommand)
 
     let SaveSnapshot targetPath (stream:Stream) = 
         use reader = new StreamReader(stream)
@@ -50,25 +80,22 @@ module Program =
         |> Seq.collect (fun x -> x.Stories)
         |> Seq.iter WriteStoryCard
 
-    let CreateBackup() =
-        let target = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd"))
-        Directory.CreateDirectory(target) |> ignore
-        Tracker.GetProjects().Projects
-        |> Seq.iter (fun x -> Tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Name + ".xml"))))
-    
     let ShowHelp() = ()
 
     [<EntryPoint>]
     let main args =
         try
-            match args.[0] with
-            | "TakeSnaphot" -> TakeSnapshot()
-            | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
-            | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
-            | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
-            | "DumpCurrentIteration" -> DumpCurrentIteration()
-            | "CreateBackup" -> CreateBackup()
-            | _ -> ShowHelp()
+            let commandName = args.[0]
+            match FindCommand commandName with
+            | Some(command) -> command.Invoke()
+            | None ->
+                match commandName with
+                | "TakeSnaphot" -> TakeSnapshot()
+                | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
+                | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
+                | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
+                | "DumpCurrentIteration" -> DumpCurrentIteration()
+                | _ -> ShowHelp()
         with :? WebException as e ->
             Console.WriteLine e.Message       
             use reader = new StreamReader(e.Response.GetResponseStream())

@@ -4,7 +4,7 @@ open System.Web.Routing
 open NUnit.Framework
 
 module HttpHandlerRouteTests =
-    let [<Test>] Shouldnt_recreate_handler_if_reusable() =
+    let [<Test>] Wont_recreate_handler_if_reusable() =
         let route = HttpHandlerRoute(fun () -> {new IHttpHandler with 
             member this.IsReusable = true
             member this.ProcessRequest context = ()}) :> IRouteHandler
