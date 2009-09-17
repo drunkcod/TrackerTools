@@ -34,9 +34,7 @@
     <Content Include="TestData/GetIterationsSampleResponse.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Compile Include="GetIterationTests.fs" />
-    <Compile Include="DataBinderTests.fs" />
-    <Compile Include="HttpHandlerRouteTests.fs" />
+    <Compile Include="Scenarios\CreateProjectScenario.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
