@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="CreatedResult.cs" />
     <Compile Include="ErrorResult.cs" />
+    <Compile Include="HttpHandlerRoute.cs" />
+    <Compile Include="RestHandler.cs" />
     <Compile Include="XmlInputAttribute.cs" />
     <Compile Include="XmlResult.cs" />
   </ItemGroup>

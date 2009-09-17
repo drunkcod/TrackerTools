@@ -37,6 +37,7 @@
     <Compile Include="GetIterationTests.fs" />
     <Compile Include="DataBinderTests.fs" />
     <Compile Include="CreateProjectScenario.fs" />
+    <Compile Include="HttpHandlerRouteTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -52,6 +53,16 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>System.Web</Name>
+      <AssemblyName>System.Web.dll</AssemblyName>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Name>System.Web.Routing</Name>
+      <AssemblyName>System.Web.Routing.dll</AssemblyName>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Xml</Name>
       <AssemblyName>System.XML.dll</AssemblyName>
@@ -62,6 +73,11 @@
     <ProjectReference Include="..\Source\TrackerTools.fsproj">
       <Name>TrackerTools</Name>
       <Project>{9df67327-0599-4c20-935d-ba802313a541}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Source\Web\TrackerTools.Web.csproj">
+      <Name>TrackerTools.Web</Name>
+      <Project>{03e5e450-6fc2-4732-9122-5fe5d13b6772}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
