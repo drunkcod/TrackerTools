@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.config" />
+    
     <Compile Include="IRequestHandler.fs" />
     <Compile Include="IResponseHandler.fs" />
     <Compile Include="XmlRequest.fs" />
@@ -51,7 +52,9 @@
     <Compile Include="DataBinder.fs" />
     <Compile Include="CommandNameAttribute.fs" />
     <Compile Include="ITrackerToolsCommand.fs" />
+    <Compile Include="Commands\TakeSnapshotCommand.fs" />
     <Compile Include="Commands\CreateBackupCommand.fs" />
+    <Compile Include="Commands\DumpCurrentIterationCommand.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

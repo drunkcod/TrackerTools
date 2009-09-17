@@ -21,14 +21,7 @@ module Program =
                 (commandNames.[0] :?> CommandNameAttribute).Name = name)
         command |> Option.map (fun x -> x.GetConstructor([|typeof<TrackerApi>; typeof<TrackerToolsConfiguration>|]).Invoke([|box Tracker; box Configuration|]) :?> ITrackerToolsCommand)
 
-    let SaveSnapshot targetPath (stream:Stream) = 
-        use reader = new StreamReader(stream)
-        File.WriteAllText(targetPath, reader.ReadToEnd())
-
-    let TakeSnapshot() =
-        let targetPath = Path.Combine(Configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd") + ".xml")
-        Tracker.Base.GetStories Configuration.ProjectId (SaveSnapshot targetPath)
-    
+   
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
             DataBinder.Bind(StoryTemplate(), story).Replace("\n", "<br>")
@@ -55,11 +48,6 @@ module Program =
             DumpToConsole stream))
         Tracker.Base.AddTask Configuration.ProjectId storyId request response
         
-    let DumpCurrentIteration() = 
-        Tracker.GetIteration(Configuration.ProjectId, "current")        
-        |> Seq.collect (fun x -> x.Stories)
-        |> Seq.iter WriteStoryCard
-
     let ShowHelp() = ()
 
     [<EntryPoint>]
@@ -70,11 +58,9 @@ module Program =
             | Some(command) -> command.Invoke()
             | None ->
                 match commandName with
-                | "TakeSnaphot" -> TakeSnapshot()
                 | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
                 | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
                 | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
-                | "DumpCurrentIteration" -> DumpCurrentIteration()
                 | _ -> ShowHelp()
         with :? WebException as e ->
             Console.WriteLine e.Message       

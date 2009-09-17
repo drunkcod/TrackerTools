@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Web", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Server.Tests", "Tests\TrackerTools.Server.Tests.fsproj", "{2E462884-D4C9-4B6C-8A78-6214562FD134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
