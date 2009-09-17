@@ -12,6 +12,12 @@ module Program =
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
     let Tracker = TrackerApi(Configuration.ApiToken)
 
+    let Bind (argument:ParameterInfo) = 
+        match argument.ParameterType with
+        | x when x = typeof<TrackerApi> -> box Tracker
+        | x when x = typeof<TrackerToolsConfiguration> -> box Configuration
+        | _ -> null
+
     let FindCommand name =
         let command =  
             Assembly.GetExecutingAssembly().GetTypes()
@@ -19,8 +25,12 @@ module Program =
             |> Seq.tryFind (fun x -> 
                 let commandNames = x.GetCustomAttributes(typeof<CommandNameAttribute>, false)
                 (commandNames.[0] :?> CommandNameAttribute).Name = name)
-        command |> Option.map (fun x -> x.GetConstructor([|typeof<TrackerApi>; typeof<TrackerToolsConfiguration>|]).Invoke([|box Tracker; box Configuration|]) :?> ITrackerToolsCommand)
-
+        command |> Option.map (fun x -> 
+            let ctor = x.GetConstructor([|typeof<TrackerApi>; typeof<TrackerToolsConfiguration>|])
+            let parameters = ctor.GetParameters()
+            let args : obj array = Array.zeroCreate parameters.Length
+            parameters |> Seq.iteri (fun n x -> args.[n] <- Bind x)
+            ctor.Invoke(args) :?> ITrackerToolsCommand)
    
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
