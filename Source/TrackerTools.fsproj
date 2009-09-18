@@ -56,6 +56,7 @@
     <Compile Include="Commands\TakeSnapshotCommand.fs" />
     <Compile Include="Commands\CreateBackupCommand.fs" />
     <Compile Include="Commands\ShowTasksCommand.fs" />
+    <Compile Include="Commands\CreateStoryCardCommand.fs" />
     <Compile Include="Commands\DumpCurrentIterationCommand.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

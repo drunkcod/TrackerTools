@@ -5,6 +5,7 @@ open TrackerTools
 
 [<CommandName("ShowTasks")>]
 type ShowTasksCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration, [<FromCommandLine(Position = 1)>] storyId:int) =
+    
     let DumpToConsole (stream:Stream) =
         use reader = new StreamReader(stream)
         reader.ReadToEnd() |> Console.WriteLine

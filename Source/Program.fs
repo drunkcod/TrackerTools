@@ -31,17 +31,7 @@ module Program =
             let args : obj array = Array.zeroCreate parameters.Length
             parameters |> Seq.iteri (fun n x -> args.[n] <- bind x)
             ctor.Invoke(args) :?> ITrackerToolsCommand)
-   
-    let WriteStoryCard(story:TrackerStory) =
-        let ProcessTemplate (story:TrackerStory) =
-            DataBinder.Bind(StoryTemplate(), story).Replace("\n", "<br>")
-
-        File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
-    
-    let CreateStoryCard (storyId:int) =
-        Tracker.GetStory(Configuration.ProjectId, storyId)
-        |> WriteStoryCard
-
+            
     let DumpToConsole (stream:Stream) =
         use reader = new StreamReader(stream)
         reader.ReadToEnd() |> Console.WriteLine
@@ -66,7 +56,6 @@ module Program =
             | Some(command) -> command.Invoke()
             | None ->
                 match commandName with
-                | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
                 | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
                 | _ -> ShowHelp()
         with :? WebException as e ->
