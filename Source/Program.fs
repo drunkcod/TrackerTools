@@ -12,13 +12,13 @@ module Program =
     let Configuration = TrackerToolsConfiguration.FromAppConfig()
     let Tracker = TrackerApi(Configuration.ApiToken)
 
-    let Bind (argument:ParameterInfo) = 
+    let Bind ifMissing (argument:ParameterInfo) = 
         match argument.ParameterType with
         | x when x = typeof<TrackerApi> -> box Tracker
         | x when x = typeof<TrackerToolsConfiguration> -> box Configuration
-        | _ -> null
+        | _ -> ifMissing(argument)
 
-    let FindCommand name =
+    let FindCommand bind name =
         let command =  
             Assembly.GetExecutingAssembly().GetTypes()
             |> Seq.filter (fun x -> typeof<ITrackerToolsCommand>.IsAssignableFrom(x))
@@ -26,10 +26,10 @@ module Program =
                 let commandNames = x.GetCustomAttributes(typeof<CommandNameAttribute>, false)
                 (commandNames.[0] :?> CommandNameAttribute).Name = name)
         command |> Option.map (fun x -> 
-            let ctor = x.GetConstructor([|typeof<TrackerApi>; typeof<TrackerToolsConfiguration>|])
+            let ctor = x.GetConstructors().[0]
             let parameters = ctor.GetParameters()
             let args : obj array = Array.zeroCreate parameters.Length
-            parameters |> Seq.iteri (fun n x -> args.[n] <- Bind x)
+            parameters |> Seq.iteri (fun n x -> args.[n] <- bind x)
             ctor.Invoke(args) :?> ITrackerToolsCommand)
    
     let WriteStoryCard(story:TrackerStory) =
@@ -45,10 +45,7 @@ module Program =
     let DumpToConsole (stream:Stream) =
         use reader = new StreamReader(stream)
         reader.ReadToEnd() |> Console.WriteLine
-
-    let ShowTasks (storyId:int) =
-        Tracker.Base.GetTasks Configuration.ProjectId storyId DumpToConsole
-            
+           
     let ResponseHandler withResponse = {new IResponseHandler with member this.HandleResponse x = withResponse(x)}           
             
     let AddTask (storyId:int) (description:string) =
@@ -64,12 +61,12 @@ module Program =
     let main args =
         try
             let commandName = args.[0]
-            match FindCommand commandName with
+            let commandLineBinder = CommandLineParameterBinder(args)
+            match FindCommand (Bind commandLineBinder.Bind) commandName with
             | Some(command) -> command.Invoke()
             | None ->
                 match commandName with
                 | "CreateStoryCard" -> CreateStoryCard (Int32.Parse(args.[1]))
-                | "ShowTasks" -> ShowTasks (Int32.Parse(args.[1]))
                 | "AddTask" -> AddTask (Int32.Parse(args.[1])) (args.[2])
                 | _ -> ShowHelp()
         with :? WebException as e ->
