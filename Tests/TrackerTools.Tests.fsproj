@@ -37,6 +37,7 @@
     <Compile Include="GetIterationTests.fs" />
     <Compile Include="DataBinderTests.fs" />
     <Compile Include="HttpHandlerRouteTests.fs" />
+    <Compile Include="CommandLineParameterBinderTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
