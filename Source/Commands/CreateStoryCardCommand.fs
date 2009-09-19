@@ -1,10 +1,13 @@
 ﻿namespace TrackerTools.Commands
+open System
 open System.IO
 open TrackerTools
 
 [<CommandName("CreateStoryCard")>]
-type CreatestoryCardCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration, [<FromCommandLine(Position = 1)>] storyId) =
+type CreateStoryCardCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration, [<FromCommandLine(Position = 1)>] storyId:int) =
     
+    let StoryTemplate() = File.ReadAllText("StoryTemplate.html")
+
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
             DataBinder.Bind(StoryTemplate(), story).Replace("\n", "<br>")

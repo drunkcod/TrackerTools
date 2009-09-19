@@ -58,6 +58,7 @@
     <Compile Include="Commands\ShowTasksCommand.fs" />
     <Compile Include="Commands\CreateStoryCardCommand.fs" />
     <Compile Include="Commands\DumpCurrentIterationCommand.fs" />
+    <Compile Include="Commands\AddTaskCommand.fs"/>
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
