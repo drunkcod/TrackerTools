@@ -46,6 +46,7 @@
     <Compile Include="TrackerIterations.fs" />
     <Compile Include="Service.fs" />
     <Compile Include="Tracker.fs" />
+    <Compile Include="StoryTemplateItem.fs" />
     <Compile Include="TrackerToolsConfiguration.fs" />
     <Compile Include="Symbol.fs" />
     <Compile Include="DataBinder.fs" />
@@ -58,7 +59,7 @@
     <Compile Include="Commands\ShowTasksCommand.fs" />
     <Compile Include="Commands\CreateStoryCardCommand.fs" />
     <Compile Include="Commands\DumpCurrentIterationCommand.fs" />
-    <Compile Include="Commands\AddTaskCommand.fs"/>
+    <Compile Include="Commands\AddTaskCommand.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

@@ -38,6 +38,7 @@
     <Compile Include="DataBinderTests.fs" />
     <Compile Include="HttpHandlerRouteTests.fs" />
     <Compile Include="CommandLineParameterBinderTests.fs" />
+    <Compile Include="StoryTemplateItemTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

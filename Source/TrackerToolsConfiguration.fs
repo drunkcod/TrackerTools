@@ -3,12 +3,12 @@ open System.Configuration
 open System.Xml
 open System.Xml.Serialization
 
-
 [<Sealed;XmlRoot("Tracker")>]
 type TrackerToolsConfiguration() =
     [<DefaultValue>] val mutable private apiToken : string
     [<DefaultValue>] val mutable private projectId : int
     [<DefaultValue>] val mutable private outputDirectory : string
+    [<DefaultValue>] val mutable private storyTemplate : StoryTemplateItem
 
     static member FromAppConfig() =
         ConfigurationManager.GetSection("Tracker") :?> TrackerToolsConfiguration
@@ -24,6 +24,10 @@ type TrackerToolsConfiguration() =
     member this.OutputDirectory 
         with get() = this.outputDirectory
         and set(value) = this.outputDirectory <- value        
+
+    member this.StoryTemplate
+        with get() = this.storyTemplate
+        and set(value) = this.storyTemplate <- value
 
     interface IConfigurationSectionHandler with
         member this.Create(parent, configcontext, section) =

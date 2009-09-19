@@ -32,9 +32,8 @@ module Program =
             ctor.Invoke(args) :?> ITrackerToolsCommand)
                                          
     let ShowHelp() = ()
-
-    [<EntryPoint>]
-    let main args =
+    
+    let [<EntryPoint>] main args =
         try
             let commandName = args.[0]
             let commandLineBinder = CommandLineParameterBinder(args)

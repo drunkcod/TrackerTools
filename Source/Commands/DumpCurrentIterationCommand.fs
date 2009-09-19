@@ -5,11 +5,9 @@ open TrackerTools
 
 [<CommandName("DumpCurrentIteration")>]
 type DumpCurrentIteration(tracker:TrackerApi, configuration:TrackerToolsConfiguration) =
-    let StoryTemplate() = File.ReadAllText("StoryTemplate.html")
-    
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
-            DataBinder.Bind(StoryTemplate(), story).Replace("\n", "<br>")
+            DataBinder.Bind(configuration.StoryTemplate.GetTemplate(), story).Replace("\n", "<br>")
         File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
         
     interface ITrackerToolsCommand with
