@@ -1,5 +1,6 @@
 ﻿namespace TrackerTools
 open System
+open System.IO
 open System.Configuration
 open System.Xml
 open System.Xml.Serialization
@@ -19,6 +20,12 @@ type TrackerToolsConfiguration() =
         if section = null then
             raise(ArgumentException(TrackerToolsConfiguration.SectionName + " section not found in configuration file."))
         section :?> TrackerToolsConfiguration
+        
+    static member From(path) = 
+        use file = File.OpenText(path)
+        let serializer = XmlSerializer(typeof<TrackerToolsConfiguration>)
+        use reader = new XmlTextReader(file)
+        serializer.Deserialize(reader) :?> TrackerToolsConfiguration))
 
     member this.ApiToken
         with get() = this.apiToken
