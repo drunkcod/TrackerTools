@@ -25,7 +25,7 @@ type TrackerToolsConfiguration() =
         use file = File.OpenText(path)
         let serializer = XmlSerializer(typeof<TrackerToolsConfiguration>)
         use reader = new XmlTextReader(file)
-        serializer.Deserialize(reader) :?> TrackerToolsConfiguration))
+        serializer.Deserialize(reader) :?> TrackerToolsConfiguration
 
     member this.ApiToken
         with get() = this.apiToken

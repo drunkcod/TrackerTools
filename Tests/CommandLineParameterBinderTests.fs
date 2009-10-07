@@ -12,7 +12,11 @@ module CommandLineParameterBinderTests =
     let [<Test>] should_support_positional_binding() =
         let binder = CommandLineParameterBinder([|"1"; "2"; "3"|])
         let bound = binder.Bind(fromArg1)
-        Assert.That(bound, Is.EqualTo(2))        
+        Assert.That(bound, Is.EqualTo(2))
+        
+    let [<Test>] should_support_hard_positional_binding() =
+        let binder = CommandLineParameterBinder([|"1"; "2"; "3"|])
+        Assert.That(binder.Bind(1, typeof<int>), Is.EqualTo(2))        
 
     let [<Test>] should_support_string_parameters() =
         let binder = CommandLineParameterBinder([|"Hello World"|])
@@ -31,4 +35,4 @@ module CommandLineParameterBinderTests =
     
     let [<Test>] should_support_named_options() =
         let binder = CommandLineParameterBinder([|"--option=Value"|])
-        Assert.That(binder.GetOption("option"), Is.EqualTo("Value"))        
+        Assert.That(binder.GetOption("option"), Is.EqualTo("Value"))
