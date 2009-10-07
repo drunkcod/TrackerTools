@@ -15,8 +15,11 @@ type CommandLineParameterBinder(args:string array) =
         this.Bind((fromCommandLine.[0] :?> FromCommandLineAttribute).Position, parameter.ParameterType)
     
     [<OverloadID("BindPositional")>]
-    member this.Bind(position:int, wantedType:Type) =
+    member this.Bind(position, wantedType:Type) =
         Convert.ChangeType(freeArgs.[position], wantedType)
+        
+    [<OverloadID("BindTyped")>]
+    member this.Bind<'a>(position) = this.Bind(position, typeof<'a>) :?> 'a
     
     member this.GetOption name =
         match args |> Seq.tryFind (fun x -> x.StartsWith(OptionPrefix + name)) with

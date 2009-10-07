@@ -41,7 +41,7 @@ module Program =
     let [<EntryPoint>] main args =
         try
             let commandLineBinder = CommandLineParameterBinder(args)            
-            let commandName = commandLineBinder.Bind(0, typeof<string>) :?> string
+            let commandName = commandLineBinder.Bind<string>(0)
             let application = ConsoleApplication(readConfiguration(commandLineBinder.GetOption("project")))
             match application.FindCommand (commandLineBinder.Bind) commandName with
             | Some(command) -> command.Invoke()
