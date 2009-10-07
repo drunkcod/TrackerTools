@@ -23,3 +23,12 @@ module CommandLineParameterBinderTests =
         let binder = CommandLineParameterBinder([|"42"|])
         let bound = binder.Bind(arg0<int>)
         Assert.That(bound, Is.EqualTo(42))
+        
+    let [<Test>] should_ignore_options_during_positional_binding() =
+        let binder = CommandLineParameterBinder([|"--option=Foo"; "42"|])
+        let bound = binder.Bind(arg0<int>)
+        Assert.That(bound, Is.EqualTo(42))
+    
+    let [<Test>] should_support_named_options() =
+        let binder = CommandLineParameterBinder([|"--option=Value"|])
+        Assert.That(binder.GetOption("option"), Is.EqualTo("Value"))        
