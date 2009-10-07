@@ -39,6 +39,7 @@
     <Compile Include="HttpHandlerRouteTests.fs" />
     <Compile Include="CommandLineParameterBinderTests.fs" />
     <Compile Include="StoryTemplateItemTests.fs" />
+    <Compile Include="TrackerToolsConfigurationTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -51,6 +52,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>System.Configuration</Name>
+      <AssemblyName>System.configuration.dll</AssemblyName>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>

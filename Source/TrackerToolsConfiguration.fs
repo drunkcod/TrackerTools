@@ -1,17 +1,24 @@
 ﻿namespace TrackerTools
+open System
 open System.Configuration
 open System.Xml
 open System.Xml.Serialization
 
 [<Sealed;XmlRoot("Tracker")>]
 type TrackerToolsConfiguration() =
+    
     [<DefaultValue>] val mutable private apiToken : string
     [<DefaultValue>] val mutable private projectId : int
     [<DefaultValue>] val mutable private outputDirectory : string
     [<DefaultValue>] val mutable private storyTemplate : StoryTemplateItem
 
+    static member SectionName = "Tracker"
+
     static member FromAppConfig() =
-        ConfigurationManager.GetSection("Tracker") :?> TrackerToolsConfiguration
+        let section = ConfigurationManager.GetSection(TrackerToolsConfiguration.SectionName) 
+        if section = null then
+            raise(ArgumentException(TrackerToolsConfiguration.SectionName + " section not found in configuration file."))
+        section :?> TrackerToolsConfiguration
 
     member this.ApiToken
         with get() = this.apiToken
