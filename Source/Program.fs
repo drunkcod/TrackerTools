@@ -22,7 +22,7 @@ type ConsoleApplication(configuration:TrackerToolsConfiguration) =
             |> Seq.filter (fun x -> typeof<ITrackerToolsCommand>.IsAssignableFrom(x))
             |> Seq.tryFind (fun x -> 
                 let commandNames = x.GetCustomAttributes(typeof<CommandNameAttribute>, false)
-                (commandNames.[0] :?> CommandNameAttribute).Name = name)
+                commandNames.Length > 0 && (commandNames.[0] :?> CommandNameAttribute).Name = name)
         let bind = this.Bind bind                
         command |> Option.map (fun x -> 
             let ctor = x.GetConstructors().[0]
