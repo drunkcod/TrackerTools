@@ -1,7 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
 <style>
-  h1{ font-size: 15pt;border-bottom: 2pt solid #333}
+  #header {
+    border-bottom: 2pt solid #333
+  }
+  .h1{ 
+    font-size: 15pt
+  }
 </style>
-<div style='width:16cm;height:10cm;border: 1pt solid black'>
-<h1>$(Name)</h1>
-<p>$(Description)</p>
+</head>
+<body>
+<div style='width:16cm;min-height:10cm;border: 1pt solid black'>
+<div id="header">
+  <span class="h1">$(Name)</span>
+  <div style="float:right;color: silver">$(Id)</div>
 </div>
+<p>$(Description)</p>
+
+</div>
+</body>

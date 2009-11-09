@@ -8,7 +8,11 @@ type CreateStoryCardCommand(tracker:TrackerApi, configuration:TrackerToolsConfig
 
     let WriteStoryCard(story:TrackerStory) =
         let ProcessTemplate (story:TrackerStory) =
-            DataBinder.Bind(configuration.StoryTemplate.GetTemplate(),  story).Replace("\n", "<br>")
+            let transform (sym:Symbol) = 
+                if sym.IsKnownAs "Description" then
+                    sym.ToString().Replace("\n","<br>")
+                else sym.ToString()                                   
+            DataBinder.Bind(configuration.StoryTemplate.GetTemplate(),  story, transform)
         File.WriteAllText(String.Format("{0}.html", story.Id), ProcessTemplate story)
 
     interface ITrackerToolsCommand with
