@@ -1,4 +1,6 @@
 ﻿namespace TrackerTools
+open System
+open System.IO
 open System.Xml.Serialization
 
 [<XmlRoot("story")>]
@@ -28,3 +30,13 @@ type TrackerStory() =
     [<XmlElement("created_at")>] member this.CreatedAt with get() = this.createdAt and set(value) = this.createdAt <- value
     [<XmlElement("accepted_at")>] member this.AcceptedAt with get() = this.acceptedAt and set(value) = this.acceptedAt <- value
     [<XmlElement("labels")>] member this.Labels with get() = this.labels and set(value) = this.labels <- value
+    
+    
+    member this.WriteStoryCard template =
+            let ProcessTemplate (story:TrackerStory) =
+                let transform (sym:Symbol) = 
+                    if sym.IsKnownAs "Description" then
+                        sym.ToString().Replace("\n","<br>")
+                    else sym.ToString()                                   
+                DataBinder.Bind(template,  story, transform)
+            File.WriteAllText(String.Format("{0}.html", this.Id), ProcessTemplate this)
