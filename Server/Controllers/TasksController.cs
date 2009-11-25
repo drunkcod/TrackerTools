@@ -15,7 +15,7 @@ namespace Server.Controllers
         {
             return new ContentResult { Content = "Hello Tracker World!" };
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post),  XmlInput("value")]
         public ActionResult Index(Task value)
         {

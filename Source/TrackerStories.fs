@@ -7,7 +7,7 @@ open System.Xml.Serialization
 type TrackerStories() =
     [<DefaultValue>] val mutable private total : int
     let stories = List<TrackerStory>()
-    [<XmlElement("story")>]        
+    [<XmlElement("story")>]
     member this.Items = stories
     member this.Count = stories.Count
     member this.Total

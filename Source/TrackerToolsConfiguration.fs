@@ -7,7 +7,7 @@ open System.Xml.Serialization
 
 [<Sealed;XmlRoot("Tracker")>]
 type TrackerToolsConfiguration() =
-    
+
     [<DefaultValue>] val mutable private apiToken : string
     [<DefaultValue>] val mutable private projectId : int
     [<DefaultValue>] val mutable private outputDirectory : string
@@ -16,12 +16,12 @@ type TrackerToolsConfiguration() =
     static member SectionName = "Tracker"
 
     static member FromAppConfig() =
-        let section = ConfigurationManager.GetSection(TrackerToolsConfiguration.SectionName) 
+        let section = ConfigurationManager.GetSection(TrackerToolsConfiguration.SectionName)
         if section = null then
             raise(ArgumentException(TrackerToolsConfiguration.SectionName + " section not found in configuration file."))
         section :?> TrackerToolsConfiguration
-        
-    static member From(path) = 
+
+    static member From(path) =
         use file = File.OpenText(path)
         let serializer = XmlSerializer(typeof<TrackerToolsConfiguration>)
         use reader = new XmlTextReader(file)
@@ -34,10 +34,10 @@ type TrackerToolsConfiguration() =
     member this.ProjectId
         with get() = this.projectId
         and set(value) = this.projectId <- value
-        
-    member this.OutputDirectory 
+
+    member this.OutputDirectory
         with get() = this.outputDirectory
-        and set(value) = this.outputDirectory <- value        
+        and set(value) = this.outputDirectory <- value
 
     member this.StoryTemplate
         with get() = this.storyTemplate
@@ -45,6 +45,6 @@ type TrackerToolsConfiguration() =
 
     interface IConfigurationSectionHandler with
         member this.Create(parent, configcontext, section) =
-            let serializer = XmlSerializer(this.GetType())                
+            let serializer = XmlSerializer(this.GetType())
             use reader = new XmlNodeReader(section) :> XmlReader
-            serializer.Deserialize(reader)                                 
+            serializer.Deserialize(reader)

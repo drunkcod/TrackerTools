@@ -10,12 +10,12 @@ type AddTaskCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration,
         use reader = new StreamReader(stream)
         reader.ReadToEnd() |> Console.WriteLine
 
-    let ResponseHandler withResponse = {new IResponseHandler with member this.HandleResponse x = withResponse(x)}           
+    let ResponseHandler withResponse = {new IResponseHandler with member this.HandleResponse x = withResponse(x)}
 
     interface ITrackerToolsCommand with
         member this.Invoke() =
-            let request = XmlRequest(TrackerTask(Description = description)) 
-            let response = (ResponseHandler(fun x -> 
+            let request = XmlRequest(TrackerTask(Description = description))
+            let response = (ResponseHandler(fun x ->
                 use stream = x.GetResponseStream()
                 DumpToConsole stream))
             tracker.Base.AddTask configuration.ProjectId storyId request response

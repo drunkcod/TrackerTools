@@ -5,7 +5,7 @@ open TrackerTools
 
 [<CommandName("CreateBackup")>]
 type CreateBackupCommand(tracker:TrackerApi, configuration:TrackerToolsConfiguration) =
-    let SaveSnapshot targetPath (stream:Stream) = 
+    let SaveSnapshot targetPath (stream:Stream) =
         use reader = new StreamReader(stream)
         File.WriteAllText(targetPath, reader.ReadToEnd())
     interface ITrackerToolsCommand with

@@ -7,4 +7,4 @@ type TrackerProjects() =
     let projects = List<TrackerProject>()
     [<XmlElement("project")>]
     member this.Projects = projects
-    
+

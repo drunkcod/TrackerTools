@@ -6,6 +6,6 @@ open System.Xml.Serialization
 [<XmlRoot("iterations")>]
 type TrackerIterations() =
     let iterations = List<TrackerIteration>()
-    
+
     [<XmlElement("iteration")>]
     member this.Items = iterations

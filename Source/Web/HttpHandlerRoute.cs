@@ -6,7 +6,7 @@
 
     public class HttpHandlerRoute : IRouteHandler
     {
-        class MissingHttpHandler : IHttpHandler 
+        class MissingHttpHandler : IHttpHandler
         {
             private MissingHttpHandler(){}
             public static readonly IHttpHandler Instance = new MissingHttpHandler();

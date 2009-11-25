@@ -7,17 +7,17 @@ open System.Xml.Serialization
 
 type XmlRequest(value:obj) =
     member this.WriteFragment(stream:Stream) =
-            use writer = 
-                XmlTextWriter.Create(stream, 
+            use writer =
+                XmlTextWriter.Create(stream,
                     XmlWriterSettings(
-                        OmitXmlDeclaration = true, 
-                        Encoding = Encoding.UTF8, 
+                        OmitXmlDeclaration = true,
+                        Encoding = Encoding.UTF8,
                         CloseOutput = true))
             let serializer = XmlSerializer(value.GetType())
             let ns = XmlSerializerNamespaces()
             ns.Add("", "")
             serializer.Serialize(writer, value, ns)
-            
+
     interface IRequestHandler with
         member this.HandleRequest(request:HttpWebRequest) =
             request.ContentType <- "text/xml"

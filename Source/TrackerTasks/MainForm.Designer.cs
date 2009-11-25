@@ -36,49 +36,49 @@
             this.NewToken = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Tasks)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tracker API Token";
-            // 
+            //
             // ApiToken
-            // 
+            //
             this.ApiToken.Location = new System.Drawing.Point(13, 30);
             this.ApiToken.Name = "ApiToken";
             this.ApiToken.Size = new System.Drawing.Size(224, 20);
             this.ApiToken.TabIndex = 1;
-            // 
+            //
             // Projects
-            // 
+            //
             this.Projects.FormattingEnabled = true;
             this.Projects.Location = new System.Drawing.Point(13, 57);
             this.Projects.Name = "Projects";
             this.Projects.Size = new System.Drawing.Size(267, 21);
             this.Projects.TabIndex = 2;
-            // 
+            //
             // Stories
-            // 
+            //
             this.Stories.FormattingEnabled = true;
             this.Stories.Location = new System.Drawing.Point(16, 85);
             this.Stories.Name = "Stories";
             this.Stories.Size = new System.Drawing.Size(264, 21);
             this.Stories.TabIndex = 3;
-            // 
+            //
             // Tasks
-            // 
+            //
             this.Tasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Tasks.Location = new System.Drawing.Point(16, 112);
             this.Tasks.Name = "Tasks";
             this.Tasks.Size = new System.Drawing.Size(264, 267);
             this.Tasks.TabIndex = 4;
-            // 
+            //
             // NewToken
-            // 
+            //
             this.NewToken.Location = new System.Drawing.Point(243, 30);
             this.NewToken.Name = "NewToken";
             this.NewToken.Size = new System.Drawing.Size(36, 23);
@@ -86,9 +86,9 @@
             this.NewToken.Text = ">>";
             this.NewToken.UseVisualStyleBackColor = true;
             this.NewToken.Click += new System.EventHandler(this.NewToken_Click);
-            // 
+            //
             // MainForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 388);
