@@ -7,18 +7,15 @@ type CommandLineParameterBinder(args:string array) =
 
     let freeArgs =
         let isFreeArg (x:string) = not (x.StartsWith(OptionPrefix))
-        args |> Seq.filter isFreeArg |> Seq.to_array
+        args |> Seq.filter isFreeArg |> Seq.toArray
 
-    [<OverloadID("BindParameter")>]
     member this.Bind (parameter:ParameterInfo) =
         let fromCommandLine = parameter.GetCustomAttributes(typeof<FromCommandLineAttribute>, false)
         this.Bind((fromCommandLine.[0] :?> FromCommandLineAttribute).Position, parameter.ParameterType)
 
-    [<OverloadID("BindPositional")>]
     member this.Bind(position, wantedType:Type) =
         Convert.ChangeType(freeArgs.[position], wantedType)
 
-    [<OverloadID("BindTyped")>]
     member this.Bind<'a>(position) = this.Bind(position, typeof<'a>) :?> 'a
 
     member this.GetOption name =
