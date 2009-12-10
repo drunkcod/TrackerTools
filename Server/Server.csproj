@@ -53,20 +53,11 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="TrackerTools.Web, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\TrackerTools.Web.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -75,14 +66,21 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\Server\TrackerTools.Server.csproj">
+      <Project>{CB52962B-E52B-4D1C-84CE-120ECAD95133}</Project>
+      <Name>TrackerTools.Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Source\TrackerTools.fsproj">
       <Project>{9DF67327-0599-4C20-935D-BA802313A541}</Project>
       <Name>TrackerTools</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Source\Web\TrackerTools.Web.csproj">
+      <Project>{03E5E450-6FC2-4732-9122-5FE5D13B6772}</Project>
+      <Name>TrackerTools.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
