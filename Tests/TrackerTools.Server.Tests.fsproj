@@ -8,7 +8,7 @@
     <ProjectGuid>{2e462884-d4c9-4b6c-8a78-6214562fd134}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>TrackerTools.Tests</AssemblyName>
+    <AssemblyName>TrackerTools.Tests.Server</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <Name>TrackerTools.Tests</Name>
   </PropertyGroup>
@@ -35,6 +35,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Scenarios\CreateProjectScenario.fs" />
+    <Compile Include="WhenCreateingProject.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -55,6 +56,8 @@
       <AssemblyName>System.Web.dll</AssemblyName>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <Name>System.Web.Routing</Name>
       <AssemblyName>System.Web.Routing.dll</AssemblyName>
@@ -67,6 +70,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Source\Server\TrackerTools.Server.csproj">
+      <Name>TrackerTools.Server</Name>
+      <Project>{cb52962b-e52b-4d1c-84ce-120ecad95133}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Source\TrackerTools.fsproj">
       <Name>TrackerTools</Name>
       <Project>{9df67327-0599-4c20-935d-ba802313a541}</Project>

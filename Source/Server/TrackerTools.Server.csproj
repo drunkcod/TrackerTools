@@ -61,10 +61,12 @@
     <ProjectReference Include="..\TrackerTools.fsproj">
       <Project>{9DF67327-0599-4C20-935D-BA802313A541}</Project>
       <Name>TrackerTools</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Web\TrackerTools.Web.csproj">
       <Project>{03E5E450-6FC2-4732-9122-5FE5D13B6772}</Project>
       <Name>TrackerTools.Web</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
