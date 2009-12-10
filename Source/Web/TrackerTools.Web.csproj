@@ -35,6 +35,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -46,16 +47,21 @@
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Xlnt.Stuff\Source\TypeExtensions.cs">
+      <Link>TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="BasicControllerFactory.cs" />
+    <Compile Include="BasicHttpContext.cs" />
+    <Compile Include="BasicHttpRequest.cs" />
+    <Compile Include="BasicHttpResponse.cs" />
     <Compile Include="CreatedResult.cs" />
     <Compile Include="ErrorResult.cs" />
+    <Compile Include="HttpContextWorkerAdapter.cs" />
     <Compile Include="HttpHandlerRoute.cs" />
+    <Compile Include="MemoryHttpSessionState.cs" />
     <Compile Include="RestHandler.cs" />
     <Compile Include="XmlInputAttribute.cs" />
     <Compile Include="XmlResult.cs" />
