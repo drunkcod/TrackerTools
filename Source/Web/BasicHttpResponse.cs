@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
@@ -7,9 +8,9 @@ namespace TrackerTools.Web
 {
     public class BasicHttpResponse : HttpResponseBase
     {
-        string contentType;
         int statusCode = 200;
         Stream outputStream = new MemoryStream();
+        NameValueCollection headers = new NameValueCollection();
 
         public static BasicHttpResponse From(HttpRequestBase request, RouteCollection routes){
             var response = new BasicHttpResponse();
@@ -21,30 +22,37 @@ namespace TrackerTools.Web
             return response;
         }
 
-        public override void Write(string s){
-            Console.WriteLine(s);
-        }
-
-        public override string ContentType {
-            get { return contentType; }
-            set { contentType = value; }
-        }
+        public override string ContentType { get; set; }
 
         public override int StatusCode {
             get { return statusCode; }
             set { statusCode = value; }
         }
 
-        public override System.IO.Stream OutputStream {
+        public override Stream OutputStream {
             get { return outputStream; }
         }
 
-        public string Body {
+        public override NameValueCollection Headers {
+            get { return headers; }
+        }
+
+        public string Body
+        {
             get {
                 var reader = new StreamReader(OutputStream);
                 outputStream.Position = 0;
                 return reader.ReadToEnd();
             }
         }
+
+        public override void AddHeader(string name, string value){
+            Headers.Add(name, value);
+        }
+
+        public override void Write(string s){
+            Console.WriteLine(s);
+        }
+
     }
 }

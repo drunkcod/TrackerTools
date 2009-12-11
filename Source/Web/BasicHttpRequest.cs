@@ -25,6 +25,7 @@ namespace TrackerTools.Web
         public static BasicHttpRequest Get(string url){ return new BasicHttpRequest(new Uri(url), "GET"); }
         public static BasicHttpRequest Put(string url){ return new BasicHttpRequest(new Uri(url), "PUT"); }
         public static BasicHttpRequest Post(string url) { return new BasicHttpRequest(new Uri(url), "POST"); }
+        public static BasicHttpRequest Post(string url, Stream inputStream) { return new BasicHttpRequest(new Uri(url), "POST", inputStream); }
 
         public override string AppRelativeCurrentExecutionFilePath {
             get { return "~" + RawUrl; }
@@ -36,6 +37,10 @@ namespace TrackerTools.Web
 
         public override string Path {
             get { return url.AbsolutePath; }
+        }
+
+        public override Uri Url {
+            get { return url; }
         }
 
         public override NameValueCollection Form { get { return form; } }
