@@ -39,7 +39,7 @@ namespace TrackerTools.Web
         }
 
         public override string GetRawUrl(){
-            return context.Request.RawUrl;
+            return Request.RawUrl;
         }
 
         public override string GetRemoteAddress(){
@@ -51,7 +51,7 @@ namespace TrackerTools.Web
         }
 
         public override string GetUriPath(){
-            throw new NotImplementedException();
+            return Request.Path;
         }
 
         public override void SendKnownResponseHeader(int index, string value){
@@ -77,5 +77,7 @@ namespace TrackerTools.Web
         public override void SendUnknownResponseHeader(string name, string value){
             throw new NotImplementedException();
         }
+
+        HttpRequestBase Request { get { return context.Request; } }
     }
 }

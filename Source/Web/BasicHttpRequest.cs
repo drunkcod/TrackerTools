@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 using System.IO;
+using System.Web;
 
 namespace TrackerTools.Web
 {
@@ -36,12 +34,16 @@ namespace TrackerTools.Web
             get { return string.Empty; }
         }
 
+        public override string Path {
+            get { return url.AbsolutePath; }
+        }
+
         public override NameValueCollection Form { get { return form; } }
         public override NameValueCollection QueryString { get { return queryString; } }
         public override string RawUrl { get { return url.AbsolutePath; } }
         public override string HttpMethod { get { return httpMethod; } }
         public override NameValueCollection Headers { get { return headers; } }
-        public override System.IO.Stream InputStream { get { return inputStream; } }
+        public override Stream InputStream { get { return inputStream; } }
         public override void ValidateInput(){ }
     }
 }
