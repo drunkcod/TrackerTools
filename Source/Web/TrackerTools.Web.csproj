@@ -62,6 +62,7 @@
     <Compile Include="HttpContextWorkerAdapter.cs" />
     <Compile Include="HttpHandlerRoute.cs" />
     <Compile Include="MemoryHttpSessionState.cs" />
+    <Compile Include="PostAttribute.cs" />
     <Compile Include="RestHandler.cs" />
     <Compile Include="XmlInputAttribute.cs" />
     <Compile Include="XmlResult.cs" />
