@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Web", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Server", "Source\Server\TrackerTools.Server.csproj", "{CB52962B-E52B-4D1C-84CE-120ECAD95133}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Console", "Source\Console\TrackerTools.Console.fsproj", "{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

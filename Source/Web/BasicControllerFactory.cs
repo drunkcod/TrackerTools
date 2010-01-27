@@ -8,7 +8,7 @@ namespace TrackerTools.Web
 {
     public class BasicControllerFactory : IControllerFactory
     {
-        public override IController CreateController(RequestContext requestContext, string controllerName){
+        public IController CreateController(RequestContext requestContext, string controllerName){
             var wantedName = controllerName + "Controller";
             foreach(var item in Controllers)
                 if(item.Name == wantedName)

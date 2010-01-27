@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9df67327-0599-4c20-935d-ba802313a541}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>TrackerTools</RootNamespace>
     <AssemblyName>TrackerTools</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -63,7 +63,6 @@
     <Compile Include="Commands\CreateStoryCardCommand.fs" />
     <Compile Include="Commands\DumpCurrentIterationCommand.fs" />
     <Compile Include="Commands\AddTaskCommand.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
