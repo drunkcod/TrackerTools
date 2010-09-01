@@ -16,7 +16,7 @@ type ConsoleApplication(configuration:TrackerToolsConfiguration) =
         | x when x = typeof<TrackerToolsConfiguration> -> box configuration
         | _ -> ifMissing(argument)
         
-    member private this.Commands =         
+    static member private Commands =         
             typeof<ITrackerToolsCommand>.Assembly.GetTypes()
             |> Seq.filter (fun x -> typeof<ITrackerToolsCommand>.IsAssignableFrom(x))
             |> Seq.choose (fun x ->
@@ -26,7 +26,7 @@ type ConsoleApplication(configuration:TrackerToolsConfiguration) =
                 else None)                                        
         
     member this.FindCommand bind name =
-        let command = this.Commands |> Seq.tryFind (fun (commandName, _) -> commandName = name)
+        let command = ConsoleApplication.Commands |> Seq.tryFind (fun (commandName, _) -> commandName = name)
         let bind = this.Bind bind
         command |> Option.map (fun (_,x) ->
             let ctor = x.GetConstructors().[0]
@@ -35,25 +35,29 @@ type ConsoleApplication(configuration:TrackerToolsConfiguration) =
             parameters |> Seq.iteri (fun n x -> args.[n] <- bind x)
             ctor.Invoke(args) :?> ITrackerToolsCommand)
 
-    member this.ShowHelp (output:TextWriter) =
+    static member ShowHelp (output:TextWriter) =
         output.WriteLine "usage is:TrackerTools <command>"
-        this.Commands |> Seq.iter (fun (name, x) -> output.WriteLine(name))
+        ConsoleApplication.Commands |> Seq.iter (fun (name, x) -> output.WriteLine(name))
     
 module Program =
     let readConfiguration = function
         | "" -> TrackerToolsConfiguration.FromAppConfig()
         | from -> TrackerToolsConfiguration.From(from + ".xml")
 
-    let [<EntryPoint>] main args =       
-        try
-            let commandLineBinder = CommandLineParameterBinder(args)
-            let commandName = commandLineBinder.Bind<string>(0)
-            let application = ConsoleApplication(readConfiguration(commandLineBinder.GetOption("project")))
-            match application.FindCommand (commandLineBinder.Bind) commandName with
-            | Some(command) -> command.Invoke()
-            | None -> application.ShowHelp Console.Out
-        with :? WebException as e ->
-            Console.WriteLine e.Message
-            use reader = new StreamReader(e.Response.GetResponseStream())
-            reader.ReadToEnd() |> Console.WriteLine
-        0
+    let [<EntryPoint>] main args =
+        if args.Length = 0 then
+            ConsoleApplication.ShowHelp Console.Out
+            0
+        else
+            try
+                let commandLineBinder = CommandLineParameterBinder(args)
+                let commandName = commandLineBinder.Bind<string>(0)
+                let application = ConsoleApplication(readConfiguration(commandLineBinder.GetOption("project")))
+                match application.FindCommand (commandLineBinder.Bind) commandName with
+                | Some(command) -> command.Invoke()
+                | None -> ConsoleApplication.ShowHelp Console.Out
+            with :? WebException as e ->
+                Console.WriteLine e.Message
+                use reader = new StreamReader(e.Response.GetResponseStream())
+                reader.ReadToEnd() |> Console.WriteLine
+            0

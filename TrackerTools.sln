@@ -1,17 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Server.Tests", "Tests\TrackerTools.Server.Tests.fsproj", "{2E462884-D4C9-4B6C-8A78-6214562FD134}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools", "Source\TrackerTools.fsproj", "{9DF67327-0599-4C20-935D-BA802313A541}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Tests", "Tests\TrackerTools.Tests.fsproj", "{D066BCC6-0215-46D4-A49E-D83912E2AADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Web", "Source\Web\TrackerTools.Web.csproj", "{03E5E450-6FC2-4732-9122-5FE5D13B6772}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Server", "Source\Server\TrackerTools.Server.csproj", "{CB52962B-E52B-4D1C-84CE-120ECAD95133}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Console", "Source\Console\TrackerTools.Console.fsproj", "{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}"
 EndProject
@@ -21,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E462884-D4C9-4B6C-8A78-6214562FD134}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DF67327-0599-4C20-935D-BA802313A541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DF67327-0599-4C20-935D-BA802313A541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DF67327-0599-4C20-935D-BA802313A541}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,18 +23,10 @@ Global
 		{D066BCC6-0215-46D4-A49E-D83912E2AADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D066BCC6-0215-46D4-A49E-D83912E2AADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D066BCC6-0215-46D4-A49E-D83912E2AADA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA08B826-DBD8-4BCE-835C-58DB00E70F4F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03E5E450-6FC2-4732-9122-5FE5D13B6772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03E5E450-6FC2-4732-9122-5FE5D13B6772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E5E450-6FC2-4732-9122-5FE5D13B6772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E5E450-6FC2-4732-9122-5FE5D13B6772}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB52962B-E52B-4D1C-84CE-120ECAD95133}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}.Release|Any CPU.ActiveCfg = Release|Any CPU

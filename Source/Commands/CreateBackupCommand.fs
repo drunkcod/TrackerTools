@@ -13,4 +13,4 @@ type CreateBackupCommand(tracker:TrackerApi, configuration:TrackerToolsConfigura
             let target = Path.Combine(configuration.OutputDirectory, DateTime.Today.ToString("yyyy-MM-dd"))
             Directory.CreateDirectory(target) |> ignore
             tracker.GetProjects().Projects
-            |> Seq.iter (fun x -> tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Name + ".xml"))))
+            |> Seq.iter (fun x -> tracker.Base.GetStories x.Id (SaveSnapshot (Path.Combine(target, x.Id.ToString() + ".xml"))))
