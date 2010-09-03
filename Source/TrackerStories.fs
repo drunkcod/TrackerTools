@@ -10,6 +10,7 @@ type TrackerStories() =
     [<XmlElement("story")>]
     member this.Items = stories
     member this.Count = stories.Count
+    [<XmlAttribute("total")>]
     member this.Total
         with get() = this.total
         and set(value) = this.total <- value

@@ -31,15 +31,12 @@
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="TestData/GetIterationsSampleResponse.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Compile Include="GetIterationTests.fs" />
     <Compile Include="DataBinderTests.fs" />
     <Compile Include="HttpHandlerRouteTests.fs" />
     <Compile Include="CommandLineParameterBinderTests.fs" />
     <Compile Include="StoryTemplateItemTests.fs" />
     <Compile Include="TrackerToolsConfigurationTests.fs" />
+    <Compile Include="TrackerStoriesTests.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
