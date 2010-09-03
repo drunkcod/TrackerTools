@@ -1,5 +1,7 @@
 ﻿namespace TrackerTools
 open System
+open System.Globalization
+open System.Text.RegularExpressions
 open System.IO
 open System.Xml.Serialization
 
@@ -17,6 +19,7 @@ type TrackerStory() =
     [<DefaultValue>] val mutable private createdAt : string
     [<DefaultValue>] val mutable private acceptedAt : string
     [<DefaultValue>] val mutable private labels : string
+    [<DefaultValue>] val mutable private deadline : DateTime
 
     [<XmlElement("id")>] member this.Id with get() = this.id and set(value) = this.id <- value
     [<XmlElement("story_type")>] member this.StoryType with get() = this.storyType and set(value) = this.storyType <- value
@@ -30,6 +33,15 @@ type TrackerStory() =
     [<XmlElement("created_at")>] member this.CreatedAt with get() = this.createdAt and set(value) = this.createdAt <- value
     [<XmlElement("accepted_at")>] member this.AcceptedAt with get() = this.acceptedAt and set(value) = this.acceptedAt <- value
     [<XmlElement("labels")>] member this.Labels with get() = this.labels and set(value) = this.labels <- value
+    [<XmlElement("deadline")>] 
+    member this.RawDeadline 
+        with get() = this.deadline.ToString() 
+        and set(value:string) =
+            let timeWithOffset = Regex.Replace(value, " (CES?T)$", MatchEvaluator(fun m -> match m.Groups.[1].Value with "CET" -> "+0100" | "CEST" -> "+0200" | x -> x))
+            this.deadline <- DateTime.ParseExact(timeWithOffset, "yyyy/MM/dd HH:mm:ssK", CultureInfo.InvariantCulture)
+
+    member this.HasDeadline with get() = this.deadline.Ticks = 0L
+    member this.Deadline with get() = this.deadline
 
     member this.WriteStoryCard template =
             let result =
