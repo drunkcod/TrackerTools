@@ -67,9 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Xlnt.Stuff\Source\TypeExtensions.cs">
-      <Link>TypeExtensions.cs</Link>
-    </Compile>
     <Compile Include="BasicControllerFactory.cs" />
     <Compile Include="BasicHttpContext.cs" />
     <Compile Include="BasicHttpRequest.cs" />
@@ -81,6 +78,7 @@
     <Compile Include="MemoryHttpSessionState.cs" />
     <Compile Include="PostAttribute.cs" />
     <Compile Include="RestHandler.cs" />
+    <Compile Include="TypeExtensions.cs" />
     <Compile Include="XmlInputAttribute.cs" />
     <Compile Include="XmlResult.cs" />
   </ItemGroup>

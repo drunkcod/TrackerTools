@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerTools.Web", "Source\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TrackerTools.Console", "Source\Console\TrackerTools.Console.fsproj", "{7E84A4BF-0AE9-42E0-BA3F-FAD9F45A72D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{271AAEDC-F93F-4E5E-8885-1BBC2A9D30A1}"
+	ProjectSection(SolutionItems) = preProject
+		TrackerStats.fsx = TrackerStats.fsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
