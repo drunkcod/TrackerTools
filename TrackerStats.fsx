@@ -7,6 +7,7 @@ open System.Text.RegularExpressions
 open System.Drawing
 open System.Text
 open TrackerTools
+open System.Globalization
 
 let ProjectId = fsi.CommandLineArgs.[1]
 
@@ -31,7 +32,7 @@ type IChartDataEncoding =
 
 type GoogleExtendedEncoding(min, max) =
     [<Literal>] 
-    let Alphabet = "ABCDEFGHIJKLMNOPQSRTUVWXYZabcdefghijklmonpqrstuvwxyz0123456789.-"
+    let Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.-"
     [<Literal>] 
     let MaxValue = 4095
     
@@ -145,10 +146,15 @@ type LineChart = {
             
         result.ToString()
 
+let calendar = GregorianCalendar()
+
 let snapshots = 
     Directory.GetFiles(@"R:\PivotalSnapshots", "*.xml", SearchOption.AllDirectories)
     |> Seq.filter (fun x -> Path.GetFileNameWithoutExtension(x) = ProjectId)
+    |> Seq.filter (fun x -> dateFromPath x > DateTime(2011, 01, 01))
     |> Seq.map (fun x -> dateFromPath x, (readSnapshot >> computeStatistics) x)
+    |> Seq.groupBy (fun (date, _) -> date.Year, calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Monday))
+    |> Seq.collect (snd >> (Seq.take 1))
 
 let month = function
     | 1 -> "Jan" | 2 -> "Feb" | 3 -> "Mar" | 4 -> "Apr" | 5 -> "May" | 6 -> "Jun"
@@ -191,13 +197,13 @@ snapshots
         Range = 0, max
         Labels = []
         Positions = [] }
-
+(*
     let xAxis = {
         Axis = Axis.X
         Range = 0,150
         Labels = snapshots |> Seq.map (fun (date, _) -> date.Day.ToString()) 
         Positions = [] }
-
+*)
     let months = snapshots |> Seq.mapi (fun n (x,_) -> x.Month, n) |> Seq.distinctBy fst
 
     let x2Axis = {
@@ -209,11 +215,11 @@ snapshots
     let translucent (x:Color) = Color.FromArgb(192, x)
 
     let chart = { 
-        Width = 400
-        Height = 650
+        Width = 800
+        Height = 350
         MinValue = min
         MaxValue = max
-        Axes = [yAxis; xAxis; x2Axis]
+        Axes = [yAxis; x2Axis]
         Series = 
             [
                 { 

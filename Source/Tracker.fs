@@ -15,7 +15,7 @@ type Tracker =
     val baseUrl : string
     val token : string
 
-    new(token) = { baseUrl = "http://www.pivotaltracker.com/services/v2/"; token = token }
+    new(token) = { baseUrl = "https://www.pivotaltracker.com/services/v2/"; token = token }
     new(token, baseUrl) = { token = token; baseUrl = baseUrl }
 
     inherit Service
